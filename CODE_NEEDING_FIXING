@@ -1,0 +1,19 @@
+// ----- Entry: <##> ----- <Reason> // CODE_NEEDING_FIXING
+----- inFile: <file> inside: <class|func|button>  -----
+  <quick desplay of code?
+-------------------- LOG: <##> --------------------
+  <Why I implemented, How I implemented>
+
+
+// ----- Entry: 01 ----- Potential Security Risk // 
+----- Registerview.swift inside SignUp Button -----
+  currentAccount?.populateUserData(uName: uName)
+  currentAccount?.saveAccount()
+  currentAccount?.logout()
+-------------------- LOG: 01 --------------------
+  I was unable to update the .jsonfile when a new account would be registered.  This is because I was unable
+  to update the json file without using the AccountManager class, the Sign Up button only utilizes
+  the Ksec chain functions which were unable to reach the json file OR the UserData struct.  The workaround created
+  was to quickly populate the singleton currentAccount, quickly save the account to the json file and then logout immediatley
+ 
+  
