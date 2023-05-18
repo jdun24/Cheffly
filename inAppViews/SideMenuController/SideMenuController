@@ -1,0 +1,70 @@
+//
+//  SideMenuController.swift
+//  chefflyApp
+//
+//  Created by Lil Uzi on 5/14/23.
+//
+
+import SwiftUI
+
+
+struct SideMenuView: View, RetrieveAccountManager {
+    @Binding var isMenuOpen: Bool
+    
+    var nested_leaveAction: () -> Void
+    var testShow: () -> Void
+    var body: some View {
+        VStack(spacing: 0){
+            HStack{
+                Button{
+                    isMenuOpen.toggle()
+                }label: {
+                    Image(systemName: "chevron.backward")
+                        .font(.system(size: 30))
+                }.offset(x: UIScreen.main.bounds.width * 0.05)
+                Spacer()
+            }
+            .frame(minWidth: 0, maxWidth: 250, maxHeight: 30)
+            .background(Color.gray)
+            //.edgesIgnoringSafeArea(.horizontal)
+            .offset(x: -UIScreen.main.bounds.width * 0.19)
+            .animation(.spring())
+            
+            List {
+                Button{
+                    testShow()
+                }label: {
+                    Text("Open Tester")
+                }
+                Button{
+                    currentAccount?.printAllAccounts()
+                }label: {
+                    Text("Print Account Information")
+                }
+                Button{
+                    currentAccount?.logout()
+                    nested_leaveAction()//returns back to home screen
+                }label: {
+                    Text("Log Out")
+                }
+                Button{
+                    currentAccount?.deleteAccount()
+                    nested_leaveAction()//returns back to home screen
+                }label: {
+                    Text("Delete Account")
+                }
+            }
+            .listStyle(SidebarListStyle())
+            .frame(minWidth: 0, maxWidth: 250, maxHeight: .infinity)
+            .background(Color.gray)
+            .scrollContentBackground(.hidden)
+            .edgesIgnoringSafeArea(.horizontal)
+            .offset(x: -UIScreen.main.bounds.width * 0.19)
+            .animation(.spring())
+            .zIndex(1)
+            .frame(width: UIScreen.main.bounds.width * 0.8)
+        }
+    }
+}
+
+
