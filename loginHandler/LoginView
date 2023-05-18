@@ -1,0 +1,73 @@
+//
+//  LoginView.swift
+//  chefflyApp
+//
+//  Created by Lil Uzi on 5/14/23.
+//
+
+import SwiftUI
+
+
+
+struct LoginView: View, RetrieveAccountManager{
+    
+    @State private var username: String = ""
+    @State private var enteredPassword: String = ""
+    @State private var showIncLogin: Bool = false
+    
+    var nested_loginAction: () -> Void
+    
+    var body: some View {
+        
+        VStack {
+            Text("Login")
+                .font(.largeTitle)
+                .padding(.bottom, 30)
+            TextField("Username", text: $username)
+                .padding()
+                .background(RoundedRectangle(cornerRadius: 5).stroke(Color.gray, lineWidth: 1))
+                .padding(.bottom, 20)
+            SecureField("Password", text: $enteredPassword)
+                .padding()
+                .background(RoundedRectangle(cornerRadius: 5).stroke(Color.gray, lineWidth: 1))
+                .padding(.bottom, 30)
+            
+            if showIncLogin == true{
+                Text("Username or Password is incorrect")
+                    .foregroundColor(.red)
+                    .padding(.bottom, 10)
+            }
+            
+            Button(action: { //Sign In
+                //if pWord == retrieveUserCredentials(username: uName){
+                if (retrieveUserCredentials(username: username) != nil) == true{
+                    nested_loginAction()
+                    currentAccount?.populateUserData(uName: username)
+                }else{
+                    showIncLogin = true
+                }
+
+            }) {
+                Text("Sign In")
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(width: 200, height: 50)
+                    .background(RoundedRectangle(cornerRadius: 25).fill(Color.blue))
+                    .shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 5)
+            }
+        }
+        .padding()
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+        .shadow(color: Color.black.opacity(0.3), radius: 10, x: 0, y: 10)
+        
+    }
+}
+
+
+
+struct LoginView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoginView(nested_loginAction: {})
+    }
+}
