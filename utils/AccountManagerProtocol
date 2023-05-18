@@ -1,0 +1,18 @@
+//
+//  AccountManagerProtocol.swift
+//  chefflyApp
+//
+//  Created by Lil Uzi on 5/18/23.
+//
+
+import Foundation
+
+protocol RetrieveAccountManager{
+    var currentAccount: AccountManager? { get }
+}
+
+extension RetrieveAccountManager {
+    var currentAccount: AccountManager?{
+        return AccountManager.shared
+    }
+}
